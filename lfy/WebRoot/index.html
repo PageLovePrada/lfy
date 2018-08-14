@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<title>收藏夹</title>
+<!-- css -->
+<link rel="stylesheet" type="text/css" href="./common/css/pageBarCommon.css" media="screen">
+<link rel="stylesheet" type="text/css" href="./common/css/pageBarMain.css" media="screen">
+<link rel="stylesheet" type="text/css" href="./common/css/table.css">
+<link rel="stylesheet" type="text/css" href="./common/css/self.css">
+<!-- js -->
+<script src="./common/js/jquery-3.1.1.js"></script>
+<script src="./common/js/pageBar.js"></script>
+
+<script>
+/** 
+* 
+*----------Dragon be here!----------/ 
+* 　　　┏┓　　　┏┓ 
+* 　　┏┛┻━━━┛┻┓ 								
+* 　　┃　　　　　　　┃ 										
+* 　　┃　　　━　　　┃           	╔------------------------------------------------------╗	                    
+* 　　┃　┳┛　┗┳　┃           /┆                     努力 ！                          ┆\                    
+* 　　┃　　　　　　　┃ 		  ||┆       终有一天  我会变成  所向无敌の技术大咖         ┆||					
+* 　　┃　　　┻　　　┃           \┆                     奋斗 ！                          ┆/                    
+* 　　┃　　　　　　　┃           	╚------------------------------------------------------╝
+* 　　┗━┓　　　┏━┛ 
+* 　　　　┃　　　┃神兽保佑 
+* 　　　　┃　　　┃代码无BUG！ 
+* 　　　　┃　　　┗━━━┓ 
+* 　　　　┃　　　　　　　┣┓ 
+* 　　　　┃　　　　　　　┏┛ 
+* 　　　　┗┓┓┏━┳┓┏┛ 
+* 　　　　　┃┫┫　┃┫┫ 
+* 　　　　　┗┻┛　┗┻┛ 
+* ━━━━━━神兽出没━━━━━━   by:lfy 
+*
+*                                               
+*         ┌═════════════┐        
+*         ║     『 模  板  王 』     ║        
+* ╭═══┤                          ├═══╮
+* ║      ║ http://www.mobanwang.com ║      ║
+* ║      └═════════════┘      ║
+* ║       ┊┊☆ ┊┊☆ ┊┊☆ ┊┊☆        ║
+* ║       ┊☆┊ ┊☆┊ ┊☆┊ ┊☆┊        ║
+* ║       ☆┊☆ ☆┊☆ ☆┊☆ ☆┊☆        ║
+* ║       ┆☆ ┆☆ ┆☆ ┆☆        ║
+* ║       ┊┊☆ ┊┊☆ ┊┊☆ ┊┊☆        ║
+* ║  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ║
+* ║         陪伴您轻松设计漂亮的网页         ║
+* ║      ┌═════════════┐      ║
+* ╰═══┤韩国风格 欧美风格 日本风格├═══╯
+* 
+* 
+* 
+* 
+* 
+*/  
+</script>
+<body class="body">
+	<div>
+		<table id="table" class="table">
+			<thead>
+				<tr>
+					<th width="400px">名称</th>
+					<th width="400px">网址</th>
+				</tr>
+			</thead>
+			<tbody id="tbContent">
+			</tbody>
+		</table>
+	</div>
+	<div class="searchAll">　</div>
+	<span class="input input--kuro searchBtn"> 
+		<input class="searchInputI searchInputII" type="text" id="searchBtn" /> 
+		<label class="input__label input__label--kuro" for="searchBtn"> 
+			<span class="input__label-content input__label-content--kuro">全部</span>
+		</label> 
+	</span>
+	<!-- 	分页 -->
+	<div class="wrapper">
+		<div class="container">
+			<div class="content">
+				<div class="eg">
+					<div class="m-style" id="pageBar"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<span></span>
+</body>
+<script type="text/javascript">
+	//原始数据
+	var mapMain = new Map();
+	//加载大王的网址
+	$.each($.parseJSON($.ajax({url:"dataSource/King.map",async:false}).responseText),function(key,value){
+		mapMain[key]=value
+	})
+	//加载爱妃的网址
+	$.each($.parseJSON($.ajax({url:"dataSource/Queen.map",async:false}).responseText),function(key,value){
+		mapMain[key]=value
+	})
+	//显示数据
+	var mapShow = new Map();
+	//加载完成
+	$(function() {
+		//加载全部数据
+		$("#searchBtn").val("");
+		dataFilter("",1);
+		//搜素
+		$("#searchBtn").on('input',function(){
+			dataFilter($("#searchBtn").val(),1);
+		//挡板显示
+		}).on('focus',function(){
+			$(".searchAll").show();
+		//挡板隐藏
+		}).on('blur',function(){
+			setTimeout(function(){$(".searchAll").hide()},300)
+			
+		});
+		//点击全部
+		$(".searchAll").on('click',function(){
+			$("#searchBtn").val("");
+			dataFilter("",1);
+		});
+	})
+	//显示数据
+	function dataFilter(selector,page){
+		mapShow = new Map();
+		//有过滤条件
+		//过滤显示数据
+		$.each(mapMain,function(key,value){
+			//名称网址模糊筛选
+			if(key.toLowerCase().indexOf(selector)>-1 || value.toLowerCase().indexOf(selector)>-1){
+				mapShow[key]=value
+			}
+		})
+			
+		var pageMax = Math.ceil(Object.keys(mapShow).length / 7)
+		initPage(pageMax);
+		showData(mapShow,page,pageMax);
+	}
+	//加载分页
+	function initPage(pageMax){
+			$('#pageBar').pagination({
+				pageCount : pageMax,
+				jump : true,
+				coping : true,
+				homePage : '首页',
+				endPage : '末页',
+				mode : 'fixed',
+				callback : function(api) {
+					showData(mapShow,api.getCurrent());
+				}
+			});
+	}
+	//显示数据
+	function showData(mapShow,page,pageMax){
+		var i = 0;
+		var tbWriter = '';
+		$.each(mapShow,function(key,value){
+			//当前页的数据
+			if(i >= (page-1)*7 && i < page*7){
+				tbWriter+=
+				'<tr class="event-bgColor">'+
+				'<td title="'+key+'">'+key+'</td>'+
+				'<td title="'+value+'">'+value+'</td>'+
+				'</tr>';
+			}
+			i++;
+		})
+		$("#tbContent").html(tbWriter);
+		//添加时间
+		$('#table tr').on('mouseover', function() {
+			//表格行鼠标移入
+			$(this).attr('class', 'event-bgColor hover-bgColor');
+		}).on('mouseout', function() {
+			//表格行鼠标移出
+			$(this).attr('class', 'event-bgColor');
+		}).on('click', function() {
+			//表格行鼠标点击
+			window.open($(this).children("td")[1].title);
+		});
+		var LeiArrIndex=0
+		var LeiColor="black";
+		setInterval(function(){
+		
+	        var LeiArr = new Array("钱大漂亮", "钱大美丽", "钱大善良","钱温柔","钱多多","编不下去了..");
+	        var LeiColorArr = new Array("#FFFF00", "#F5F5DC", "#EEDC82","#FF8247","#E0FFFF","#CD5C5C");
+	        var spanText = $("<span></span>").text(LeiArr[LeiArrIndex]);  
+	        LeiArrIndex = Math.round(Math.random() * LeiArr.length + 1);
+	        LeiColor = "#F"+Math.round(Math.random()*9)+Math.round(Math.random()*9)+Math.round(Math.random()*9)+Math.round(Math.random()*9)+Math.round(Math.random()*9);
+	        var x =  Math.round(Math.random()*1200+1), 
+	        y = Math.round(Math.random()*400+1); 
+	        spanText.css({ 
+	            "z-index": 9999999, 
+	            "top": y - 20, 
+	            "left": x, 
+	            "position": "absolute", 
+	            "font-weight": "bold", 
+	            "color": LeiColor 
+	        }); 
+	        $("body").append(spanText); 
+	        spanText.animate({ 
+	            "top": y - 180, 
+	            "opacity": 0 
+	        }, 
+	        1500, 
+	        function() { 
+	            spanText.remove(); 
+	        }); 
+		},1000)
+		
+   
+		
+		
+		$('html').on('click', function(e) {
+	        var LeiArr = new Array("钱大漂亮", "钱大美丽", "钱大善良","钱温柔","钱多多","编不下去了..");
+	        var LeiColorArr = new Array("#FFFF00", "#F5F5DC", "#EEDC82","#FF8247","#E0FFFF","#CD5C5C");
+	        var spanText = $("<span></span>").text(LeiArr[LeiArrIndex]);  
+	        LeiArrIndex = Math.round(Math.random() * LeiArr.length + 1);
+	        LeiColor = "#F"+Math.round(Math.random()*9)+Math.round(Math.random()*9)+Math.round(Math.random()*9)+Math.round(Math.random()*9)+Math.round(Math.random()*9);
+	        var x = e.pageX, 
+	        y = e.pageY; 
+	        spanText.css({ 
+	            "z-index": 9999999, 
+	            "top": y - 20, 
+	            "left": x, 
+	            "position": "absolute", 
+	            "font-weight": "bold", 
+	            "color": LeiColor 
+	        }); 
+	        $("body").append(spanText); 
+	        spanText.animate({ 
+	            "top": y - 180, 
+	            "opacity": 0 
+	        }, 
+	        1500, 
+	        function() { 
+	            spanText.remove(); 
+	        }); 
+   
+		});
+	}
+	
+//获取鼠标位置
+function getMousePos(event) {
+      var e = event || window.event;
+      return {'x':e.screenX,'y':screenY}
+}
+//鼠标格式主题
+function mouseStyle(){}
+	
+</script>
+
+</html>
