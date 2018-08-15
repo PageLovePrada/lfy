@@ -95,10 +95,6 @@
 	$.each($.parseJSON($.ajax({url:"dataSource/King.map",async:false}).responseText),function(key,value){
 		mapMain[key]=value
 	})
-	//加载爱妃的网址
-	$.each($.parseJSON($.ajax({url:"dataSource/Queen.map",async:false}).responseText),function(key,value){
-		mapMain[key]=value
-	})
 	//显示数据
 	var mapShow = new Map();
 	//加载完成
@@ -180,35 +176,8 @@
 			//表格行鼠标点击
 			window.open($(this).children("td")[1].title);
 		});
-		var LeiArrIndex=0
-		var LeiColor="black";
-		setInterval(function(){
-		
-	        var LeiArr = new Array("钱大漂亮", "钱大美丽", "钱大善良","钱温柔","钱多多","编不下去了..");
-	        var LeiColorArr = new Array("#FFFF00", "#F5F5DC", "#EEDC82","#FF8247","#E0FFFF","#CD5C5C");
-	        var spanText = $("<span></span>").text(LeiArr[LeiArrIndex]);  
-	        LeiArrIndex = Math.round(Math.random() * LeiArr.length + 1);
-	        LeiColor = "#F"+Math.round(Math.random()*9)+Math.round(Math.random()*9)+Math.round(Math.random()*9)+Math.round(Math.random()*9)+Math.round(Math.random()*9);
-	        var x =  Math.round(Math.random()*1200+1), 
-	        y = Math.round(Math.random()*400+1); 
-	        spanText.css({ 
-	            "z-index": 9999999, 
-	            "top": y - 20, 
-	            "left": x, 
-	            "position": "absolute", 
-	            "font-weight": "bold", 
-	            "color": LeiColor 
-	        }); 
-	        $("body").append(spanText); 
-	        spanText.animate({ 
-	            "top": y - 180, 
-	            "opacity": 0 
-	        }, 
-	        1500, 
-	        function() { 
-	            spanText.remove(); 
-	        }); 
-		},1000)
+		//气球特效
+		showBalloon();
 		
    
 		
@@ -246,6 +215,37 @@
 function getMousePos(event) {
       var e = event || window.event;
       return {'x':e.screenX,'y':screenY}
+}
+//气球特效
+function showBalloon(){
+	var LeiArrIndex=0
+	var LeiColor="black";
+	setInterval(function(){
+        var LeiArr = new Array("钱大漂亮", "钱大美丽", "钱大善良","钱温柔","钱多多","编不下去了..");
+        var LeiColorArr = new Array("#FFFF00", "#F5F5DC", "#EEDC82","#FF8247","#E0FFFF","#CD5C5C");
+        var spanText = $("<span></span>").text(LeiArr[LeiArrIndex]);  
+        LeiArrIndex = Math.round(Math.random() * LeiArr.length + 1);
+        LeiColor = "#F"+Math.round(Math.random()*9)+Math.round(Math.random()*9)+Math.round(Math.random()*9)+Math.round(Math.random()*9)+Math.round(Math.random()*9);
+        var x =  Math.round(Math.random()*1200+1), 
+        y = Math.round(Math.random()*400+1); 
+        spanText.css({ 
+            "z-index": 9999999, 
+            "top": y - 20, 
+            "left": x, 
+            "position": "absolute", 
+            "font-weight": "bold", 
+            "color": LeiColor 
+        }); 
+        $("body").append(spanText); 
+        spanText.animate({ 
+            "top": y - 180, 
+            "opacity": 0 
+        }, 
+        1500, 
+        function() { 
+            spanText.remove(); 
+        }); 
+	},5000)
 }
 //鼠标格式主题
 function mouseStyle(){var a,b = 1;}
