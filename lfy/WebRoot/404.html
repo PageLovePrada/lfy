@@ -55,7 +55,7 @@
 		}
 
 		.container-title {
-		  opacity:0.6;
+		  opacity:0.7;
 		  width: 600px;
 		  height: 450px;
 		  left: 28%;
@@ -274,13 +274,24 @@
             </ul>
         </div>
         <script type="text/javascript">
-        $(function(){
-        	$("#moon").css("left",$('#sun').offset().left-130).css("top",$('#sun').offset().top+20)
-        })
+        window.onload=function(){
+        	$("#moon").css("left",$('#sun').offset().left-130).css("top",$('#sun').offset().top-130)
+        }
+        var add = false;
         setInterval(function(){
+        if(add){
+        		$("#moon").css("opacity",parseFloat($("#moon").css("opacity"))+0.025)
+        }else{
+        		$("#moon").css("opacity",parseFloat($("#moon").css("opacity"))-0.025)
+        }
+        if($("#moon").css("opacity")==0.7){
+       	 	add=false;
+        }
+        if($("#moon").css("opacity")==0.1){
+       	 	add=true;
+        }
         		console.log($("#moon").css("opacity"))
-        		$("#moon").css("opacity",parseFloat($("#moon").css("opacity"))+0.1)
-        	},500);
+        	},100);
         </script>
     </body>
 </html>
