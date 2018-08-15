@@ -89,10 +89,13 @@
 	<span></span>
 </body>
 <script type="text/javascript">
+	//气球特效初始参数
+	var LeiArrIndex=0
+	var LeiColor="black";
 	//原始数据
 	var mapMain = new Map();
 	//加载大王的网址
-	$.each($.parseJSON($.ajax({url:"dataSource/King.map",async:false}).responseText),function(key,value){
+	$.each($.parseJSON($.ajax({url:"dataSource/King.map",async:false}).responseText + "}"),function(key,value){
 		mapMain[key]=value
 	})
 	//显示数据
@@ -218,8 +221,6 @@ function getMousePos(event) {
 }
 //气球特效
 function showBalloon(){
-	var LeiArrIndex=0
-	var LeiColor="black";
 	setInterval(function(){
         var LeiArr = new Array("钱大漂亮", "钱大美丽", "钱大善良","钱温柔","钱多多","编不下去了..");
         var LeiColorArr = new Array("#FFFF00", "#F5F5DC", "#EEDC82","#FF8247","#E0FFFF","#CD5C5C");
