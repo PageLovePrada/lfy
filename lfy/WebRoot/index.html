@@ -7,8 +7,11 @@
 <link rel="stylesheet" type="text/css" href="./common/css/pageBarMain.css" media="screen">
 <link rel="stylesheet" type="text/css" href="./common/css/table.css">
 <link rel="stylesheet" type="text/css" href="./common/css/self.css">
+<link rel="stylesheet" type="text/css" href="./common/css/sweetalert2.css">
 <!-- js -->
 <script src="./common/js/jquery-3.1.1.js"></script>
+<script src="./common/js/jquery.i18n.properties-1.0.9.js"></script>
+<script src="./common/js/sweetalert2.all.js"></script>
 <script src="./common/js/pageBar.js"></script>
 
 <script>
@@ -62,7 +65,7 @@
 			<thead>
 				<tr>
 					<th width="400px">名称</th>
-					<th width="400px">网址</th>
+					<th width="400px">网址<img class="addURL" src="common/img/addURL.png"></th>
 				</tr>
 			</thead>
 			<tbody id="tbContent">
@@ -95,9 +98,9 @@
 	//原始数据
 	var mapMain = new Map();
 	//加载大王的网址
-	$.each($.parseJSON($.ajax({url:"dataSource/King.map",async:false}).responseText + "}"),function(key,value){
+	$.each($.parseJSON($.ajax({url: "dataSource/King.map",async:false}).responseText + "}"),function(key,value){
 		mapMain[key]=value
-	})
+	})  
 	//显示数据
 	var mapShow = new Map();
 	//加载完成
@@ -121,6 +124,45 @@
 			$("#searchBtn").val("");
 			dataFilter("",1);
 		});
+		//添加数据
+		$(".addURL").on('click',function(){
+			swal.mixin({
+					  input: 'text',
+					  confirmButtonText: '下一步',
+					  cancelButtonText: '取消',
+					  showCancelButton: true,
+					  progressSteps: ['1', '2']
+					}).queue([
+					  {
+					    title: '描述'
+					  },
+					  '网址'
+					]).then((result) => {
+							$.ajax({
+							type:"POST",
+							url:"insertURL.do",
+							data:{key : result.value[0], value : result.value[1]},
+							success:function(data){
+									if(data==1){
+									swal({
+										  title: "添加成功!",
+										  text: "",
+										  type: "success"
+										})
+										.then((willDelete) => {
+											window.location.reload()
+										});
+									}else{
+	                       				swal("未添加成功!","","error");
+									}
+								},
+	                        error: function(data){
+	                       		swal("添加失败!","","error");
+	                       		}  
+							})
+
+					})
+		})
 	})
 	//显示数据
 	function dataFilter(selector,page){
@@ -177,7 +219,9 @@
 			$(this).attr('class', 'event-bgColor');
 		}).on('click', function() {
 			//表格行鼠标点击
-			window.open($(this).children("td")[1].title);
+			if($(this).children("td")[1]){
+				window.open($(this).children("td")[1].title);
+			}
 		});
 		//气球特效
 		showBalloon();

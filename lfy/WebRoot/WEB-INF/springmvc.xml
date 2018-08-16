@@ -17,8 +17,9 @@
 		http://www.springframework.org/schema/tx/spring-tx-3.1.xsd ">
 		
 		
-	<mvc:annotation-driven></mvc:annotation-driven>
-	
+	<!--添加注解驱动 -->
+
+        <mvc:annotation-driven></mvc:annotation-driven>
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"/>
 	
 	
