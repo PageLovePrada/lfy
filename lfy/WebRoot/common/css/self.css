@@ -1,16 +1,16 @@
-/*Êó±êÑùÊ½  */
+/*é¼ æ ‡æ ·å¼  */
 * {
 	cursor: url('../img/mouse.cur'),default;
 }
-/*Á¢ÌåÒõÓ°  */
+/*ç«‹ä½“é˜´å½±  */
 .body{
 	text-shadow: 10px 8px 1px #CFCFCF;
 }
-/*±í¸ñÁ¢ÌåÒõÓ°  */
+/*è¡¨æ ¼ç«‹ä½“é˜´å½±  */
 .table{
 	box-shadow: 30px 20px 15px #888888;
 }
-/*²éÑ¯¿òÑùÊ½  */
+/*æŸ¥è¯¢æ¡†æ ·å¼  */
 .searchAll {
 	display: none;
 	z-index: 99;
