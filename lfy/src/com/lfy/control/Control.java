@@ -58,7 +58,12 @@ public class Control {
 		tool.appendTxt(path,"\"" + key + "\"" + ":" + "\"" + value + "\"");
 		return "";
 	}
-
+	//愤怒的小鸟
+	@RequestMapping("playAngryBirds.do")
+	public String playAngryBirds(ModelMap modelMap,HttpServletRequest request,
+			HttpServletResponse response) {
+		return "view/game/AngryBirds.jsp";
+	}
 	public static void main(String[] args) {
 	}
 }

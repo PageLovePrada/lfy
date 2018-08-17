@@ -49,10 +49,14 @@ body {
 	border-bottom: 2px dashed #000;
 	cursor: default;
 	transition: all .125s ease-in-out;
+	cursor: pointer;
+	transition: all 0.4s;
 }
 
 #table tbody tr:hover { /*background-color: rgba(129,208,177,.3);*/
-	
+	transform: scale(1.05);
+	box-shadow: 40px 30px 20px #888888;
+ 	opacity: 0.5;
 }
 
 #table tbody tr.event-bgColor {
