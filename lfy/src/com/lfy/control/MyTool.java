@@ -24,7 +24,7 @@ public class MyTool {
 	 * @param	传入	priperties Key
 	 * @return	返回	priperties value
 	 */
-	protected String readPriperties(String name) {
+	public String readPriperties(String name) {
 
 	    Properties properties = new Properties();
 	   	// 使用InPutStream流读取properties文件
@@ -39,7 +39,7 @@ public class MyTool {
 		return properties.getProperty(name);
 	}
 	
-	protected boolean appendTxt(String txtPath,String insertText) {
+	public boolean appendTxt(String txtPath,String insertText) {
 		try {
 			/* 写入TXT文件 */
 			BufferedWriter output = new BufferedWriter(new FileWriter(txtPath, true));// true,则追加写入text文本
@@ -51,6 +51,14 @@ public class MyTool {
 			e.printStackTrace();
 		}
 		return false;
+	}
+	//测试方法执行时间
+	public long usertime() {
+		return System.currentTimeMillis();
+	}
+	//时间差
+	public long reduceTime(long time1,long time2) {
+		return time2 - time1;
 	}
 	/**
 	 * main方法测试

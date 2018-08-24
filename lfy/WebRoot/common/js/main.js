@@ -186,8 +186,6 @@ $(function() {
 	//鼠标移入查询
 	$(".searchBtn").on('mouseover',function(){
 		$("#searchBtn").focus();
-	}).on('mouseout',function(){
-		$("#searchBtn").blur();
 	});
 	//滚轮翻页
 	$(document).on("mousewheel DOMMouseScroll", function (e) {
@@ -249,3 +247,9 @@ $(function() {
 	console.log('%c 1.愤怒的小鸟　','color: #9ACD32;font-size: 15px');
 	console.log('%c http://'+document.domain+':8080/lfy/playAngryBirds.do','color:#FF1493;font-size:15px;');
 })
+
+	//页面加载完事件写在此处
+	window.onload=function(){
+	
+	
+	}

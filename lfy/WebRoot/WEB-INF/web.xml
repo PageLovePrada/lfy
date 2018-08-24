@@ -10,7 +10,9 @@
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/springmvc.xml</param-value>
+			<param-value>/WEB-INF/springmvc.xml</param-value>		
+			<!-- 设置启动时加载,避免用户等待时间过长,通常写二以后的数字 -->
+			<load-on-startup>2</load-on-startup>
 		</init-param>
 	</servlet>
 	  <servlet>

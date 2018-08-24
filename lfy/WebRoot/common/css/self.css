@@ -2,6 +2,7 @@
 	cursor: url('../img/mouse.cur'),default;
 }
 .body{
+
 	text-shadow: 10px 8px 1px #CFCFCF;
 }
 .table{
@@ -24,12 +25,23 @@
 	margin-left: 3px;
 }
 
+.weather{
+	float: right;
+	width: 320px;
+  	position: relative;
+}
+.goubener{
+	margin-top: 100px;
+	width: 236px;
+	height: 256px;
+}
 .clock{
-	left: 0px;
+	left: -25px;
 	top: 0px;
 	position: absolute;
 	width: 350px;
 	z-index: 100;
+	float: left;
 }
 .clock li{
 	position: relative;
