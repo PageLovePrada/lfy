@@ -25,6 +25,7 @@
 	<servlet-mapping>
 		<servlet-name>springServlet</servlet-name>
 		<url-pattern>*.do</url-pattern>
+		<url-pattern>*.json</url-pattern>
 	</servlet-mapping>
   <servlet-mapping>
     <servlet-name>MyFilter</servlet-name>

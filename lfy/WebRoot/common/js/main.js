@@ -76,8 +76,8 @@
 		
 		$('html').on('click', function(e) {
 			if(balloonClick){return false;}
-			balloonClick = true;
-			setTimeout(function(){balloonClick=false;},2000)
+//			balloonClick = true;
+//			setTimeout(function(){balloonClick=false;},2000)
 	        var LeiArr = new Array("钱大漂亮", "钱大美丽", "钱大善良","钱温柔","钱多多","编不下去了..");
 	        var LeiColorArr = new Array("#FFFF00", "#F5F5DC", "#EEDC82","#FF8247","#E0FFFF","#CD5C5C");
 	        var spanText = $("<span></span>").text(LeiArr[LeiArrIndex]);  

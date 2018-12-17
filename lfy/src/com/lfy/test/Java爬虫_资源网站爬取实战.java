@@ -34,7 +34,8 @@ public class Java爬虫_资源网站爬取实战 {
 		int number = 1;
 		List<Java爬虫_资源网站爬取实战bean> pics = new ArrayList<Java爬虫_资源网站爬取实战bean>();//存储获取到的所有图片的URL地址
 		for (int i = STARTPAGE; i < ENDPAGE; i++) {
-			String url = "http://www.27270.com/beautiful/beijingtupian/2016/16622"+i+".html";
+			
+			String url = "https://www.sohu.com/a/200697699_680752";
 			Document doc = null;
 			doc = Jsoup.connect(url).get();		//获取页面文档
 			Elements divList = doc.body().select("div");
