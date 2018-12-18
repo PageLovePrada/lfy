@@ -118,4 +118,18 @@
 <script src="./common/js/main.js"></script>
 <!-- 鲨鱼js -->
 <script src="./common/js/whaleIndex.js"></script>
+<script type="text/javascript">
+var listen = true,key;
+$(function(){
+	$(document).keydown(function(event){
+		if(listen){
+			if(key == 66 && event.keyCode == 74){
+				window.location = 'common/note.html';
+			}
+			key = event.keyCode;
+		}
+	　});
+	setTimeout(function(){listen=false;},2000);
+})
+	</script>
 </html>

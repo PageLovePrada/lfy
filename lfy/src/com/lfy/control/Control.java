@@ -16,6 +16,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.lfy.bean.User;
+
 @Controller
 public class Control {
 
@@ -69,26 +71,9 @@ public class Control {
 
 	@RequestMapping("submit.json")
 	public String submit(HttpServletRequest request,
-			HttpServletResponse response, String a) {
-
-		Map map1 = new HashMap();
-		Map map2 = new HashMap();
-		map2.put("str1", "撒点粉");
-		map2.put("str2", "s爱仕达");
-		map2.put("a", "a富商大贾d");
-		map1.put("obj", map2);
-		map1.put("obj2", "ssdfg暗示法s");
-		JSONObject json = JSONObject.fromObject(map1);
-		try {
-	        response.setCharacterEncoding("UTF-8");
-			PrintWriter out = response.getWriter();
-			out.write(json.toString());
-			out.flush();
-			out.close();
-			out = null;
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+			HttpServletResponse response, User user) {
+		System.out.println("账号:" + user.getUserName());
+		System.out.println("密码:" + user.getpwd());
 		return null;
 	}
 
